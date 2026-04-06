@@ -1,6 +1,6 @@
 # Arithmetic Operations in Go
 
-Tags: #go #basics #arithmetic #math
+Tags: #go #basics #arithmetic #math 
 
 ## Overview
 
