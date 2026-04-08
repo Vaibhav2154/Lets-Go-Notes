@@ -80,5 +80,5 @@ func doWork() error {
 
 ## Related Topics
 
-[[2- Channels]]
+[[2 - Channels]]
 
