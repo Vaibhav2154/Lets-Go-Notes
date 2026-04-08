@@ -79,5 +79,6 @@ func doWork() error {
 - Should avoid goroutine leaks when used and shouldn't create many goroutines to prevent excessive resource consumptions
 
 ## Related Topics
+
 [[2- Channels]]
 
