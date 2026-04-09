@@ -10,11 +10,35 @@ Un-buffered channels look for immediate receiver hence cannot be used in the mai
 
 ## Code Example
 
+```Go
+package main
 
+
+import "fmt"
+
+  
+func main() {
+
+ch := make(chan int)
+
+  
+
+go func() {
+
+	ch <- 1
+
+}()
+
+  
+
+receiver := <-ch
+
+fmt.Println(receiver)
+}
+```
 ## Key Points
-- They look for immediate receiver hence cannot be used in the main function as they message is received in the next line
+- The receiver waits for all of the go routine to finish and  then assumes that channel would send a value to it by the channel
 - 
-
 
 
 ## Related Notes
