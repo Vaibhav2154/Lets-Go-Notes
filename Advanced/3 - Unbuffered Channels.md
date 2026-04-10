@@ -38,7 +38,7 @@ fmt.Println(receiver)
 ```
 ## Key Points
 - The receiver waits for all of the go routine to finish and  then assumes that channel would send a value to it by the channel
-- 
-
-
 ## Related Notes
+
+[[1 - Goroutines]]
+[[2 - Channels]]
