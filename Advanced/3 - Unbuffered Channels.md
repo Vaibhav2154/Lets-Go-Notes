@@ -42,3 +42,4 @@ fmt.Println(receiver)
 
 [[1 - Goroutines]]
 [[2 - Channels]]
+[[4 - Buffered Channels]]
