@@ -74,3 +74,5 @@ time.Sleep(100 * time.Microsecond)
 
 [[1 - Goroutines]]
 [[3 - Unbuffered Channels]]
+[[4 - Buffered Channels]]
+
