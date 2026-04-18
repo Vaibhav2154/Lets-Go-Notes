@@ -4,7 +4,7 @@ Tags: #go #intermediate #closures #functions
 
 ## Overview
 
-A **closure** is a function that captures variables from its enclosing scope. The captured variables persist across multiple calls.
+***A closure is a function that captures variables from its enclosing scope. The captured variables persist across multiple calls***.
 
 ## Code Example
 

@@ -4,7 +4,8 @@ Tags: #go #advanced #channels
 
 
 ## Overview
-Channels are used to synchronize the communication between the multiple go routines by passing values and other things.
+
+***Channels are used to synchronize the communication between the multiple go routines by passing values and other things***.
 
 ## Code Example
 ```Go
@@ -75,4 +76,4 @@ time.Sleep(100 * time.Microsecond)
 [[1 - Goroutines]]
 [[3 - Unbuffered Channels]]
 [[4 - Buffered Channels]]
-
+[[5 - Channel Synchronization]]

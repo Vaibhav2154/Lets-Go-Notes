@@ -5,7 +5,7 @@ Tags: #go #advanced #goroutines
 
 ## Overview
 
-Go routines are **light weight threads** handled by the go runtime scheduler. They are usually used for high concurrency in go programming. 
+***Go routines are light weight threads handled by the go runtime scheduler. They are usually used for high concurrency in go programming***.
 
 ## Code Example
 

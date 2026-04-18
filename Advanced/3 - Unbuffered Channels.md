@@ -4,8 +4,8 @@ Tags: #go #advanced #channels
 
 
 ## Overview
-Un-buffered channels look for immediate receiver hence cannot be used in the main function as they message is received in the next line
 
+***Un-buffered channels look for immediate receiver hence cannot be used in the main function as they message is received in the next line***
 
 
 ## Code Example
