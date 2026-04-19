@@ -55,10 +55,9 @@ func main() {
 }
 
 ```
-###
-```Go
-// ============= SYNCHRONIZING DATA EXCHANGE
+### SYNCHRONIZING DATA EXCHANGE
 
+```Go
 func main() {
 	data := make(chan string)
 	
