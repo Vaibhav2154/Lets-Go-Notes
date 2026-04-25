@@ -5,69 +5,51 @@ Tags: #go #advanced #channels
 
 ## Overview
 
-***Channels are used to synchronize the communication between the multiple go routines by passing values and other things***.
+***Channels are typed conduits used by goroutines to communicate and synchronize***.
+
+They help avoid shared-memory coordination by passing data explicitly.
 
 ## Code Example
 ```Go
 package main
 
-import (
-
 "fmt"
 "time"
-
-)
-
-func main() {
+	"fmt"
+	"time"
 
 // variable := make(chan type)
 greeting := make(chan string)
-greetString := "Hello"
+	greeting := make(chan string)
+
+	go func() {
+		defer close(greeting)
+
+		greeting <- "Hello"
+		greeting <- "Vaibhav"
+
+		for _, e := range "ABCDE" {
+			greeting <- string(e)
+		}
+	}()
+
+	for msg := range greeting {
+		fmt.Println("Received:", msg)
 
 
-go func() {
-
-	greeting <- greetString //
-	greeting <- "Vaibhav" //
-
-	for _, e := range "ABCDE" {
-		greeting <- string(e)
-
-	}
-}()
-
-
-  
-
-go func() {
-
-	reciever := <-greeting
-	fmt.Println(reciever)
-
-}()
-
-go func() {
-
-	reciever := <-greeting
-	fmt.Println(reciever)
-
-	for range 5 {
-
-		reciever = <- greeting
-		fmt.Println(reciever)
-
-	}
-
-}()
-
-time.Sleep(100 * time.Microsecond)
-}
+	time.Sleep(20 * time.Millisecond)
 ```
+
 
 ## Key Points
 - They are blocking because they continuously try to receive values, i.e. they are ready to receive continuous flow of data
 - Main function/thread is also a go routine.
-- It is usually used when there is a very large and continuous stream of data being passed from a sender.
+- Channels are blocking by default:
+  - send blocks until a receiver is ready (for unbuffered channels)
+  - receive blocks until data is available
+- `main` also runs as a goroutine.
+- Close a channel when no more values will be sent.
+- Use `for value := range ch` to receive until closed.
 
 
 
@@ -77,3 +59,4 @@ time.Sleep(100 * time.Microsecond)
 [[3 - Unbuffered Channels]]
 [[4 - Buffered Channels]]
 [[5 - Channel Synchronization]]
+

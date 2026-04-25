@@ -1,43 +1,39 @@
 # 3 - Un-buffered Channels
 
-Tags: #go #advanced #channels 
+Tags: #go #advanced #channels
 
 
 ## Overview
 
-***Un-buffered channels look for immediate receiver hence cannot be used in the main function as they message is received in the next line***
+***Unbuffered channels have zero capacity, so each send waits for a matching receive***.
+
+This gives strict synchronization between goroutines.
 
 
 ## Code Example
 
-```Go
+```go
 package main
-
 
 import "fmt"
 
-  
 func main() {
+	ch := make(chan int)
 
-ch := make(chan int)
+	go func() {
+		ch <- 1
+	}()
 
-  
-
-go func() {
-
-	ch <- 1
-
-}()
-
-  
-
-receiver := <-ch
-
-fmt.Println(receiver)
+	receiver := <-ch
+	fmt.Println(receiver)
 }
 ```
+
 ## Key Points
-- The receiver waits for all of the go routine to finish and  then assumes that channel would send a value to it by the channel
+- Unbuffered channels synchronize sender and receiver at the handoff point.
+- Great for signaling and strict ordering.
+- Missing sender/receiver pairs can cause deadlocks.
+
 ## Related Notes
 
 [[1 - Goroutines]]

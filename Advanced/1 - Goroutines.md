@@ -1,82 +1,69 @@
-# Go-routines in Go
+# 1 - Goroutines
 
-Tags: #go #advanced #goroutines 
+Tags: #go #advanced #goroutines
 
 
 ## Overview
 
-***Go routines are light weight threads handled by the go runtime scheduler. They are usually used for high concurrency in go programming***.
+***Goroutines are lightweight concurrent functions managed by the Go runtime scheduler***.
+
+They are useful when tasks can run independently (I/O, background jobs, concurrent processing), but they should be coordinated to avoid leaks and race conditions.
 
 ## Code Example
 
-```Go
+```go
 package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
 func main() {
-	var err error
+	fmt.Println("Program started")
 
-	fmt.Println("Start of the program")
+	var wg sync.WaitGroup
+	wg.Add(3)
 
-	go sayHello()
+	go sayHello(&wg)
+	go printNumbers(&wg)
+	go printAlphabets(&wg)
 
-	fmt.Println("After the say hello function")
-
-	func() {
-		err = doWork()
-	}()
-
-	go printNumbers()
-	go printAlphabets()
-
-	if err != nil {
-		fmt.Println("An error occured")
-	} else {
-		fmt.Println("Do work completed properly")
-	}
-
-	time.Sleep(2 * time.Second)
+	wg.Wait()
+	fmt.Println("All goroutines finished")
 }
 
-func sayHello() {
-	fmt.Println("Before Saying hello")
-
-	time.Sleep(1 * time.Second)
-
-	fmt.Println("Saying hello")
+func sayHello(wg *sync.WaitGroup) {
+	defer wg.Done()
+	time.Sleep(300 * time.Millisecond)
+	fmt.Println("Hello from goroutine")
 }
 
-func printNumbers() {
+func printNumbers(wg *sync.WaitGroup) {
+	defer wg.Done()
 	for i := 0; i < 5; i++ {
-		fmt.Println("Number", i, time.Now())
+		fmt.Println("Number:", i)
 		time.Sleep(100 * time.Millisecond)
 	}
 }
 
-func printAlphabets() {
-	for _, number := range "abcde" {
-		fmt.Println("Alphabet", string(number), time.Now())
-		time.Sleep(200 * time.Millisecond)
+func printAlphabets(wg *sync.WaitGroup) {
+	defer wg.Done()
+	for _, ch := range "abcde" {
+		fmt.Println("Alphabet:", string(ch))
+		time.Sleep(120 * time.Millisecond)
 	}
-}
-
-func doWork() error {
-	time.Sleep(1 * time.Second)
-	return fmt.Errorf("An error occured in the do work")
 }
 ```
 
 
 ## Key Points
 
-- They are functions that leaves the main thread and run in the background and come back to join the main thread once the functions are finished to return any value
-- They don't stop the program flow, they are non blocking
-- Uses M:N Scheduling model.
-- Should avoid goroutine leaks when used and shouldn't create many goroutines to prevent excessive resource consumptions
+- Goroutines are non-blocking from the caller side.
+- The Go scheduler multiplexes goroutines over OS threads (M:N model).
+- Prefer proper coordination (`sync.WaitGroup`, channels, context) over `time.Sleep` in production logic.
+- Always design cancellation/exit paths to prevent goroutine leaks.
 
 ## Related Topics
 

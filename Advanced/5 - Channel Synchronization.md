@@ -4,52 +4,64 @@ Tags: #go #advanced #channels
 
 
 ## Overview
-***It ensures that data is properly exchanged between Goroutines. It coordinates the execution flow to avoid race conditions and ensure predictable behavior***
+***Channel synchronization ensures goroutines coordinate safely and complete work in a predictable order***.
 
 
 ## Basic example
-```Go
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
 func main() {
 
 	done := make(chan bool)
-	
-	
+
 	go func() {
-	
+
 		fmt.Println("Working..")
 		time.Sleep(2 * time.Second)
 		done <- true
-	
+
 	}()
-	
+
 	t := <-done
-	fmt.Println(t,"Finished")
+	fmt.Println(t, "Finished")
 
 }
 
 ```
 
 ### MULTIPLE GO ROUTINES AND ENSURING ALL GOROUTINES ARE COMPLETE
-```Go
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
 func main() {
 
 	numGoRoutines := 5
-	
-	done := make(chan int, 5)
-	for v := range numGoRoutines {
-		time.Sleep(2*time.Second)
+
+	done := make(chan int, numGoRoutines)
+	for v := 0; v < numGoRoutines; v++ {
 		go func(id int) {
-			fmt.Printf("Goroutine %d is executing....\n",id)
+			time.Sleep(200 * time.Millisecond)
+			fmt.Printf("Goroutine %d is executing....\n", id)
 			done <- id
 		}(v)
 	}
-	
-	for range numGoRoutines {
-	
+
+	for i := 0; i < numGoRoutines; i++ {
 		fmt.Println(<-done)
-	
+
 	}
-	
+
 	fmt.Println("All goroutines have been finished")
 
 }
@@ -57,26 +69,40 @@ func main() {
 ```
 ### SYNCHRONIZING DATA EXCHANGE
 
-```Go
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
 func main() {
 	data := make(chan string)
-	
+
 	go func() {
-		for i := range 5 {		
+		for i := 0; i < 5; i++ {
 			data <- fmt.Sprintf("hello%d", i)
-			time.Sleep(2 * time.Second)
+			time.Sleep(200 * time.Millisecond)
 		}
 		close(data)
-	
+
 	}()
-	
+
 	for value := range data {
-		fmt.Println("Data receviced", value, ":",time.Now())
+		fmt.Println("Data received", value, ":", time.Now())
 	}
 }
 ```
 
 ## Key Points
-- It helps the *life cycle* of Go routines and completion of tasks.
-- A channel should be closed once all of the expected data has been put into the channel.
+- Use channels to signal completion (`done <- true`) and pass results.
+- Buffered channels are useful when collecting results from multiple goroutines.
+- Close channels from the sender side only, after all sends are done.
+
 ## Related Notes
+
+[[1 - Goroutines]]
+[[2 - Channels]]
+[[3 - Unbuffered Channels]]
+[[4 - Buffered Channels]]
