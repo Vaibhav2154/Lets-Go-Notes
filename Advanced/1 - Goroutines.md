@@ -60,8 +60,8 @@ func printAlphabets(wg *sync.WaitGroup) {
 
 ## Key Points
 
-- Goroutines are non-blocking from the caller side.
-- The Go scheduler multiplexes goroutines over OS threads (M:N model).
+- Goroutines are non-blocking from the caller side. They are independent.
+- The Go scheduler multiplexes goroutines over OS threads (M:N model). 
 - Prefer proper coordination (`sync.WaitGroup`, channels, context) over `time.Sleep` in production logic.
 - Always design cancellation/exit paths to prevent goroutine leaks.
 

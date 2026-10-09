@@ -43,6 +43,7 @@ greeting := make(chan string)
 
 ## Key Points
 - They are blocking because they continuously try to receive values, i.e. they are ready to receive continuous flow of data
+- Channels should always be used inside a go routine
 - Main function/thread is also a go routine.
 - Channels are blocking by default:
   - send blocks until a receiver is ready (for unbuffered channels)
