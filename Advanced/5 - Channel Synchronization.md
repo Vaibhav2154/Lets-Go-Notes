@@ -5,8 +5,6 @@ Tags: #go #advanced #channels
 
 ## Overview
 ***Channel synchronization ensures goroutines coordinate safely and complete work in a predictable order***.
-
-
 ## Basic example
 ```go
 package main
@@ -34,8 +32,7 @@ func main() {
 }
 
 ```
-
-### MULTIPLE GO ROUTINES AND ENSURING ALL GOROUTINES ARE COMPLETE
+### MULTIPLE GO ROUTINES AND ENSURING ALL GOROUTINES ARE COMPLETE 
 ```go
 package main
 

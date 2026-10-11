@@ -1,8 +1,6 @@
 # 2 - Channels
 
 Tags: #go #advanced #channels
-
-
 ## Overview
 
 ***Channels are typed conduits used by goroutines to communicate and synchronize***.

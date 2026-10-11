@@ -64,6 +64,7 @@ func printAlphabets(wg *sync.WaitGroup) {
 - The Go scheduler multiplexes goroutines over OS threads (M:N model). 
 - Prefer proper coordination (`sync.WaitGroup`, channels, context) over `time.Sleep` in production logic.
 - Always design cancellation/exit paths to prevent goroutine leaks.
+- Go routines help in achieving concurrency in Go language
 
 ## Related Topics
 
